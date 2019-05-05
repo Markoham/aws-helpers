@@ -31,7 +31,7 @@ func showInstances(instances []*Instance) {
 	total := len(instances)
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Name", "IP", "State", "Code", "LaunchTime", "StackName", "Auto scaling group"})
+	table.SetHeader([]string{"ID", "Name", "IP", "State", "Type", "LaunchTime", "StackName", "Auto scaling group"})
 	table.SetFooter([]string{"", "", "", "", "", "", "Total", strconv.Itoa(total)})
 
 	table.SetBorder(false)
@@ -46,7 +46,7 @@ func showInstances(instances []*Instance) {
 			*instance.Name,
 			aurora.Cyan(*instance.IP).String(),
 			getInstanceColor(instance.State).String(),
-			strconv.FormatInt(*instance.Code, 10),
+			*instance.Type,
 			aurora.Magenta(instance.LaunchTime.Format("2006-01-02T15:04:05")).String(),
 			*instance.StackName,
 			*instance.AutoScalingGroup,

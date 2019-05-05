@@ -18,7 +18,7 @@ type Instance struct {
 	Name             *string
 	IP               *string
 	State            *string
-	Code             *int64
+	Type             *string
 	StackName        *string
 	AutoScalingGroup *string
 	LaunchTime       *time.Time
@@ -68,7 +68,7 @@ func parseResult(res *ec2.DescribeInstancesOutput) []*Instance {
 				Name:             getTag(instance.Tags, "Name"),
 				IP:               safeIP(instance.PrivateIpAddress),
 				State:            instance.State.Name,
-				Code:             instance.State.Code,
+				Type:             instance.InstanceType,
 				LaunchTime:       instance.LaunchTime,
 				StackName:        getTag(instance.Tags, "aws:cloudformation:stack-name"),
 				AutoScalingGroup: getTag(instance.Tags, "aws:autoscaling:groupName"),
